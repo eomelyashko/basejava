@@ -25,18 +25,27 @@ public class ArrayStorage {
 
     Resume get(String uuid) {
         int index = find(uuid);
-        if (index != top) // если значение равно количеству элементов, то элемента нет в списке
-            return storage[find(uuid)];
-        else
+        if (index > 0) { // если значение равно количеству элементов, то элемента нет в списке
+            return storage[index];
+        } else {
             return null;
+        }
     }
 
     void delete(String uuid) {
         int findIndex = find(uuid);
-        storage[findIndex] = null;
-        for (int k = findIndex; k < top; k++) // Перемещение последующих элементов
-            storage[k] = storage[k + 1];
-        top--;
+        if (findIndex >= 0) {
+            for (int k = findIndex; k < top; k++) { // Перемещение последующих элементов
+                if (k == (top - 1)) {
+                    storage[k] = null;
+                    break;
+                }
+                storage[k] = storage[k + 1];
+            }
+            top--;
+        } else {
+            //элемент для удаления не найден
+        }
     }
 
     int find(String searchKey) {
@@ -48,7 +57,7 @@ public class ArrayStorage {
                 else
                     ++currentIn; // Элемент не найден
             } else {
-                return top; //если элемента в списка нет возвращаем общее кол-во имеющихся элементов
+                return -1; //если элемента в списке нет возвращаем -1
             }
         }
 
@@ -58,7 +67,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return Arrays.stream(storage).filter(r -> r != null).toArray(Resume[]::new);
+        return Arrays.copyOf(storage, top); //думаю этот метод подойдет лучше стрима с фильтром
     }
 
     int size() {
