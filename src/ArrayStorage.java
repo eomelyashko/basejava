@@ -15,17 +15,18 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (storage[find(r.uuid)] == null) {
+        int index = find(r.uuid);
+        if (index < 0) {
             storage[top] = r;
             top++;
         } else {
-            //Дубликат
+            //дубль
         }
     }
 
     Resume get(String uuid) {
         int index = find(uuid);
-        if (index > 0) { // если значение равно количеству элементов, то элемента нет в списке
+        if (index >= 0) { // если значение равно количеству элементов, то элемента нет в списке
             return storage[index];
         } else {
             return null;
@@ -49,13 +50,13 @@ public class ArrayStorage {
     }
 
     int find(String searchKey) {
-        int currentIn = 0;
+        int currentIndex = 0;
         while (true) {
-            if (currentIn < top) {
-                if (storage[currentIn].uuid.equals(searchKey.toLowerCase()))
-                    return currentIn; // Элемент найден
+            if (currentIndex < top) {
+                if (storage[currentIndex].uuid.equals(searchKey.toLowerCase()))
+                    return currentIndex; // Элемент найден
                 else
-                    ++currentIn; // Элемент не найден
+                    ++currentIndex; // Элемент не найден
             } else {
                 return -1; //если элемента в списке нет возвращаем -1
             }
