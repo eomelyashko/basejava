@@ -57,18 +57,13 @@ public class ArrayStorage {
     }
 
     int find(String searchKey) {
-        int currentIndex = 0;
-        while (true) {
-            if (currentIndex < size) {
-                if (storage[currentIndex].uuid.equals(searchKey.toLowerCase()))
-                    return currentIndex; // Элемент найден
-                else
-                    ++currentIndex; // Элемент не найден
-            } else {
-                return -1; //если элемента в списке нет возвращаем -1
-            }
+        int currentIdx = 0;
+        for (int i = currentIdx; currentIdx < size; currentIdx++) {
+                if (storage[currentIdx].uuid.equals(searchKey.toLowerCase())) {
+                    return currentIdx; // Элемент найден
+                }
         }
-
+        return -1; //если элемента в списке нет возвращаем -1
     }
 
     /**
