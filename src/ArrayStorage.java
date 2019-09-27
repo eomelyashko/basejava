@@ -28,10 +28,10 @@ public class ArrayStorage {
 
     void update(Resume r) {
         int idx = find(r.uuid);
-        if (idx >= 0) {
-            storage[idx] = r;
-        } else {
+        if (idx < 0) {
             System.out.println("Resume не найдено");
+        } else {
+            storage[idx] = r;
         }
     }
 
@@ -47,25 +47,23 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         int findIdx = find(uuid);
-        if (findIdx >= 0) {
-            for (int k = findIdx; k < size; k++) { // Перемещение последующих элементов
-                if (k == (size - 1)) {
-                    storage[k] = null;
-                    break;
-                }
-                storage[k] = storage[k + 1];
-            }
-            size--;
-        } else {
+        if (findIdx < 0) {
             System.out.println("Resume не найдено");
+        } else {
+            storage[findIdx] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
         }
     }
 
     int find(String searchKey) {
-        int currentIdx = 0;
+        int currentIndex = 0;
         while (true) {
-            if (currentIdx < size) {
-                return storage[currentIdx].uuid.equals(searchKey.toLowerCase()) ? currentIdx : ++currentIdx; // Элемент не найден
+            if (currentIndex < size) {
+                if (storage[currentIndex].uuid.equals(searchKey.toLowerCase()))
+                    return currentIndex; // Элемент найден
+                else
+                    ++currentIndex; // Элемент не найден
             } else {
                 return -1; //если элемента в списке нет возвращаем -1
             }
