@@ -1,19 +1,23 @@
+package com.urise.webapp.storage;
+
+import com.urise.webapp.model.Resume;
+
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10000];
     private int size;
 
-    void clear() {
+    public void clear() {
         Arrays.fill(storage, null);
         size = 0;
     }
 
-    void save(Resume r) {
-        int idx = find(r.uuid);
+    public void save(Resume r) {
+        int idx = find(r.getUuid());
         if (idx < 0) {
             if (size >= storage.length) {
                 System.out.println("В хранилище нет места");
@@ -26,29 +30,29 @@ public class ArrayStorage {
         }
     }
 
-    void update(Resume r) {
-        int idx = find(r.uuid);
+    public void update(Resume r) {
+        int idx = find(r.getUuid());
         if (idx < 0) {
-            System.out.println("Resume не найдено");
+            System.out.println("com.urise.webapp.model.Resume не найдено");
         } else {
             storage[idx] = r;
         }
     }
 
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
         int idx = find(uuid);
-        if (idx >= 0) { // если значение меньше 0 то Resume нет в списке
+        if (idx >= 0) { // если значение меньше 0 то com.urise.webapp.model.Resume нет в списке
             return storage[idx];
         } else {
-            System.out.println("Resume не найдено");
+            System.out.println("com.urise.webapp.model.Resume не найдено");
             return null;
         }
     }
 
-    void delete(String uuid) {
+    public void delete(String uuid) {
         int findIdx = find(uuid);
         if (findIdx < 0) {
-            System.out.println("Resume не найдено");
+            System.out.println("com.urise.webapp.model.Resume не найдено");
         } else {
             storage[findIdx] = storage[size - 1];
             storage[size - 1] = null;
@@ -56,10 +60,10 @@ public class ArrayStorage {
         }
     }
 
-    int find(String searchKey) {
+    public int find(String searchKey) {
         int currentIdx = 0;
         for (int i = currentIdx; currentIdx < size; currentIdx++) {
-                if (storage[currentIdx].uuid.equals(searchKey.toLowerCase())) {
+                if (storage[currentIdx].getUuid() == (searchKey.toLowerCase())) {
                     return currentIdx; // Элемент найден
                 }
         }
@@ -69,11 +73,11 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         return Arrays.copyOf(storage, size); //думаю этот метод подойдет лучше стрима с фильтром
     }
 
-    int size() {
+    public int size() {
         return size;
     }
 }
