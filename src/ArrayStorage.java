@@ -5,58 +5,67 @@ import java.util.Arrays;
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
-    private int top;
+    private int size;
 
     void clear() {
-        for (int i = 0; i < top; i++) {
-            storage[i] = null;
-        }
-        top = 0;
+        Arrays.fill(storage, null);
+        size = 0;
     }
 
     void save(Resume r) {
-        int index = find(r.uuid);
-        if (index < 0) {
-            storage[top] = r;
-            top++;
+        int idx = find(r.uuid);
+        if (idx < 0) {
+            if (size >= storage.length) {
+                System.out.println("В хранилище нет места");
+            } else {
+                storage[size] = r;
+                size++;
+            }
         } else {
             //дубль
         }
     }
 
-    Resume get(String uuid) {
-        int index = find(uuid);
-        if (index >= 0) { // если значение равно количеству элементов, то элемента нет в списке
-            return storage[index];
+    void update(Resume r) {
+        int idx = find(r.uuid);
+        if (idx >= 0) {
+            storage[idx] = r;
         } else {
+            System.out.println("Resume не найдено");
+        }
+    }
+
+    Resume get(String uuid) {
+        int idx = find(uuid);
+        if (idx >= 0) { // если значение меньше 0 то Resume нет в списке
+            return storage[idx];
+        } else {
+            System.out.println("Resume не найдено");
             return null;
         }
     }
 
     void delete(String uuid) {
-        int findIndex = find(uuid);
-        if (findIndex >= 0) {
-            for (int k = findIndex; k < top; k++) { // Перемещение последующих элементов
-                if (k == (top - 1)) {
+        int findIdx = find(uuid);
+        if (findIdx >= 0) {
+            for (int k = findIdx; k < size; k++) { // Перемещение последующих элементов
+                if (k == (size - 1)) {
                     storage[k] = null;
                     break;
                 }
                 storage[k] = storage[k + 1];
             }
-            top--;
+            size--;
         } else {
-            //элемент для удаления не найден
+            System.out.println("Resume не найдено");
         }
     }
 
     int find(String searchKey) {
-        int currentIndex = 0;
+        int currentIdx = 0;
         while (true) {
-            if (currentIndex < top) {
-                if (storage[currentIndex].uuid.equals(searchKey.toLowerCase()))
-                    return currentIndex; // Элемент найден
-                else
-                    ++currentIndex; // Элемент не найден
+            if (currentIdx < size) {
+                return storage[currentIdx].uuid.equals(searchKey.toLowerCase()) ? currentIdx : ++currentIdx; // Элемент не найден
             } else {
                 return -1; //если элемента в списке нет возвращаем -1
             }
@@ -68,10 +77,10 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return Arrays.copyOf(storage, top); //думаю этот метод подойдет лучше стрима с фильтром
+        return Arrays.copyOf(storage, size); //думаю этот метод подойдет лучше стрима с фильтром
     }
 
     int size() {
-        return top;
+        return size;
     }
 }
