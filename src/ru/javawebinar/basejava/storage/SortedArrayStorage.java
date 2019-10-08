@@ -5,39 +5,47 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
-    @Override
-    public void clear() {
 
+    @Override
+    public void save(Resume resume) {
+        int idx = find(resume.getUuid());
+        if (idx < 0) {
+            if (size >= storage.length) {
+                System.out.println("В хранилище нет места");
+            } else {
+                idx = Math.abs(find(resume.getUuid())) - 1;
+                for (int i = size; i > idx; i--) { // сдвиг элементов на 1 ячейку
+                    storage[i] = storage[i - 1];
+                }
+                storage[idx] = resume;
+                size++;
+            }
+        } else {
+            System.out.println("В хранилище доступно Resume " + resume.getUuid());
+        }
     }
 
     @Override
-    public void update(Resume r) {
-
-    }
-
-    @Override
-    public void save(Resume r) {
-
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        return null;
+    public void update(Resume resume) {
+        int idx = find(resume.getUuid());
+        if (idx < 0) {
+            System.out.println("Resume " + resume.getUuid() + " не найдено");
+        } else {
+            storage[idx] = resume;
+        }
     }
 
     @Override
     public void delete(String uuid) {
-
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return new Resume[0];
-    }
-
-    @Override
-    public int size() {
-        return size;
+        int idx = find(uuid);
+        if (idx < 0) {
+            System.out.println("Resume " + uuid + " не найдено");
+        } else {
+            for (int i = idx; i < size; i++) { // смещение элементов
+                storage[i] = storage[i + 1];
+            }
+            size--;
+        }
     }
 
     @Override
