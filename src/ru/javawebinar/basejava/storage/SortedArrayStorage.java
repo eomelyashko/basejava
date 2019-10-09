@@ -26,16 +26,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    public void update(Resume resume) {
-        int idx = find(resume.getUuid());
-        if (idx < 0) {
-            System.out.println("Resume " + resume.getUuid() + " не найдено");
-        } else {
-            storage[idx] = resume;
-        }
-    }
-
-    @Override
     public void delete(String uuid) {
         int idx = find(uuid);
         if (idx < 0) {
