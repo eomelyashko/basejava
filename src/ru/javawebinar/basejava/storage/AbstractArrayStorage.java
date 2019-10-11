@@ -14,6 +14,32 @@ public abstract class AbstractArrayStorage implements Storage {
         size = 0;
     }
 
+    public final void update(Resume resume) {
+        int idx = find(resume.getUuid());
+        if (idx < 0) {
+            System.out.println("Resume " + resume.getUuid() + " не найдено");
+        } else {
+            storage[idx] = resume;
+            System.out.println("Resume " + resume.getUuid() + " обновлено");
+        }
+    }
+
+    public final void save(Resume resume) {
+        int idx = find(resume.getUuid());
+        if (idx >= 0) {
+            System.out.println("В хранилище доступно Resume " + resume.getUuid());
+        } else if (size >= STORAGE_LIMIT) {
+            System.out.println("В хранилище нет места");
+        } else {
+            idx = Math.abs(idx) - 1;
+            for (int i = size; i > idx; i--) { // сдвиг элементов на 1 ячейку
+                storage[i] = storage[i - 1];
+            }
+            storage[idx] = resume;
+            size++;
+        }
+    }
+
     public final Resume get(String uuid) {
         int idx = find(uuid);
         if (idx < 0) {
@@ -23,12 +49,15 @@ public abstract class AbstractArrayStorage implements Storage {
         return storage[idx];
     }
 
-    public final void update(Resume resume) {
-        int idx = find(resume.getUuid());
+    public final void delete(String uuid) {
+        int idx = find(uuid);
         if (idx < 0) {
-            System.out.println("Resume " + resume.getUuid() + " не найдено");
+            System.out.println("Resume " + uuid + " не найдено");
         } else {
-            storage[idx] = resume;
+            for (int i = idx; i < size; i++) { // смещение элементов
+                storage[i] = storage[i + 1];
+            }
+            size--;
         }
     }
 
@@ -43,7 +72,5 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    public abstract void save(Resume r);
-    public abstract void delete(String uuid);
     protected abstract int find(String uuid);
 }
