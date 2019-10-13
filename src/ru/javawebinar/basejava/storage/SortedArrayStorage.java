@@ -7,19 +7,20 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void addAndIncrementResume(Resume resume) {
-        int idx = Math.abs(find(resume.getUuid())) - 1;
-        for (int i = size; i > idx; i--) { // сдвиг элементов на 1 ячейку
-            storage[i] = storage[i - 1];
+    protected int addResume(int index) {
+        int idx = Math.abs(index) - 1;
+        // сдвиг элементов на 1 ячейку
+        if (size - idx >= 0) {
+            System.arraycopy(storage, idx, storage, idx + 1, size - idx);
         }
-        storage[idx] = resume;
-        size++;
+        return idx;
     }
 
     @Override
     protected void removeResume(int idx) {
-        for (int i = idx; i < size; i++) { // смещение элементов
-            storage[i] = storage[i + 1];
+        // смещение элементов
+        if (size - idx >= 0) {
+            System.arraycopy(storage, idx + 1, storage, idx, size - idx);
         }
     }
 
