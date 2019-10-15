@@ -17,9 +17,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected void removeResume(int idx) {
         // смещение элементов
-        for (int i = idx; i < size - 1; i++) { // смещение элементов
-            storage[i] = storage[i + 1];
-        }
+        // смещение элементов
+        if (size - 1 - idx >= 0) System.arraycopy(storage, idx + 1, storage, idx, size - 1 - idx);
     }
 
     @Override
