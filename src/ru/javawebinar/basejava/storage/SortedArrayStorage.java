@@ -16,9 +16,11 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void removeResume(int idx) {
-        // смещение элементов
-        // смещение элементов
-        if (size - 1 - idx >= 0) System.arraycopy(storage, idx + 1, storage, idx, size - 1 - idx);
+        //https://codereview.stackexchange.com/questions/36221/binary-search-for-inserting-in-array#answer-36239
+        int numMoved = size - 1 - idx;
+        if (numMoved > 0) {
+            System.arraycopy(storage, idx + 1, storage, idx, numMoved);
+        }
     }
 
     @Override

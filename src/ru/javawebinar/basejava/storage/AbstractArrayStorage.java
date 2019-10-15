@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10_000;
+
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
@@ -28,7 +29,7 @@ public abstract class AbstractArrayStorage implements Storage {
         int idx = find(resume.getUuid());
         if (idx >= 0) {
             System.out.println("В хранилище доступно Resume " + resume.getUuid());
-        } else if (size >= STORAGE_LIMIT) {
+        } else if (size == STORAGE_LIMIT) {
             System.out.println("В хранилище нет места");
         } else {
             addResume(resume, idx);
