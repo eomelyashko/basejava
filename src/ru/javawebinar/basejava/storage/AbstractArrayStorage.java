@@ -1,9 +1,15 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
 
+/**
+ * Array based storage for Resumes
+ */
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10_000;
 
@@ -18,19 +24,19 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void update(Resume resume) {
         int idx = find(resume.getUuid());
         if (idx < 0) {
-            System.out.println("Resume " + resume.getUuid() + " не найдено");
+            throw new NotExistStorageException(resume.getUuid());
         } else {
             storage[idx] = resume;
-            System.out.println("Resume " + resume.getUuid() + " обновлено");
+            throw new StorageException("Resume " + resume.getUuid() + " обновлено", resume.getUuid());
         }
     }
 
     public final void save(Resume resume) {
         int idx = find(resume.getUuid());
         if (idx >= 0) {
-            System.out.println("В хранилище доступно Resume " + resume.getUuid());
+            throw new ExistStorageException(resume.getUuid());
         } else if (size == STORAGE_LIMIT) {
-            System.out.println("В хранилище нет места");
+            throw new StorageException("В хранилище нет места", resume.getUuid());
         } else {
             addResume(resume, idx);
             size++;
@@ -40,8 +46,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final Resume get(String uuid) {
         int idx = find(uuid);
         if (idx < 0) {
-            System.out.println("Resume " + uuid + " не найдено");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[idx];
     }
@@ -49,7 +54,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void delete(String uuid) {
         int idx = find(uuid);
         if (idx < 0) {
-            System.out.println("Resume " + uuid + " не найдено");
+            throw new NotExistStorageException(uuid);
         } else {
             removeResume(idx);
             storage[size - 1] = null;
