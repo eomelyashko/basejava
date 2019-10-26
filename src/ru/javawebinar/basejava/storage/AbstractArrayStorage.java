@@ -1,7 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-import ru.javawebinar.basejava.exception.ExistStorageException;
-import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
@@ -10,7 +8,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage extends AbstractStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10_000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -21,20 +19,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
         size = 0;
     }
 
-    public final void update(Resume resume) {
-        int idx = find(resume.getUuid());
-        if (idx < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else {
-            storage[idx] = resume;
-        }
+    @Override
+    public void updateElement(Resume resume, Integer idx) {
+        storage[idx] = resume;
     }
 
-    public final void save(Resume resume) {
-        int idx = find(resume.getUuid());
-        if (idx >= 0) {
-            throw new ExistStorageException(resume.getUuid());
-        } else if (size == STORAGE_LIMIT) {
+    @Override
+    public void saveElement(Resume resume, Integer idx) {
+        if (size == STORAGE_LIMIT) {
             throw new StorageException("В хранилище нет места", resume.getUuid());
         } else {
             addResume(resume, idx);
@@ -42,23 +34,16 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
         }
     }
 
-    public final Resume get(String uuid) {
-        int idx = find(uuid);
-        if (idx < 0) {
-            throw new NotExistStorageException(uuid);
-        }
+    @Override
+    public Resume getElement(Integer idx) {
         return storage[idx];
     }
 
-    public final void delete(String uuid) {
-        int idx = find(uuid);
-        if (idx < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            removeResume(idx);
-            storage[size - 1] = null;
-            size--;
-        }
+    @Override
+    public final void deleteElement(Integer idx) {
+        removeResume(idx);
+        storage[size - 1] = null;
+        size--;
     }
 
     public int size() {
@@ -72,10 +57,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-
     protected abstract void removeResume(int idx);
 
     protected abstract void addResume(Resume resume, int idx);
-
-    protected abstract int find(String uuid);
 }
