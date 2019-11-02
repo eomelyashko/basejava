@@ -1,5 +1,7 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
@@ -13,32 +15,51 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getElement(Integer idx) {
-        return list.get(idx);
+    protected Object getExistElement(String uuid) {
+        Object idx = find(uuid);
+        if (idx == null) {
+            throw new NotExistStorageException(uuid);
+        }
+        return idx;
     }
 
     @Override
-    protected void updateElement(Resume resume, Integer idx) {
-        list.set(idx, resume);
+    protected Object getNotExistElement(String uuid) {
+        Object idx = find(uuid);
+        if (idx != null) {
+            throw new ExistStorageException(uuid);
+        }
+        return idx;
     }
 
     @Override
-    protected void deleteElement(Integer idx) {
-        list.remove(idx.intValue());
+    protected Resume getElement(Object idx) {
+        return list.get((Integer) idx);
     }
 
     @Override
-    protected void saveElement(Resume resume, Integer idx) {
+    protected void updateElement(Resume resume, Object idx) {
+        list.set((Integer) idx, resume);
+    }
+
+    @Override
+    protected void deleteElement(Object idx) {
+        int idxRemove = (Integer) idx;
+        list.remove(idxRemove);
+    }
+
+    @Override
+    protected void saveElement(Resume resume, Object idx) {
         list.add(resume);
     }
 
     @Override
-    protected int find(String uuid) {
+    protected Object find(String uuid) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getUuid().equals(uuid.toLowerCase()))
                 return i;
         }
-        return -1;
+        return null;
     }
 
     public Resume[] getAll() {
