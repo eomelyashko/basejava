@@ -1,7 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-import ru.javawebinar.basejava.exception.ExistStorageException;
-import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
@@ -12,24 +10,6 @@ public class ListStorage extends AbstractStorage {
 
     public void clear() {
         list.clear();
-    }
-
-    @Override
-    protected Object getExistElement(String uuid) {
-        Object idx = find(uuid);
-        if (idx == null) {
-            throw new NotExistStorageException(uuid);
-        }
-        return idx;
-    }
-
-    @Override
-    protected Object getNotExistElement(String uuid) {
-        Object idx = find(uuid);
-        if (idx != null) {
-            throw new ExistStorageException(uuid);
-        }
-        return idx;
     }
 
     @Override
