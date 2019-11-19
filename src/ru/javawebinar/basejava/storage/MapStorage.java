@@ -16,22 +16,6 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getExistElement(String uuid) {
-        if (!map.containsKey(uuid)) {
-            throw new NotExistStorageException(uuid);
-        }
-        return find(uuid);
-    }
-
-    @Override
-    protected Object getNotExistElement(String uuid) {
-        if (map.containsKey(uuid)) {
-            throw new ExistStorageException(uuid);
-        }
-        return find(uuid);
-    }
-
-    @Override
     protected void updateElement(Resume resume, Object idx) {
         map.put(resume.getUuid(), resume);
     }
@@ -65,5 +49,22 @@ public class MapStorage extends AbstractStorage {
     @Override
     public int size() {
         return map.size();
+    }
+
+
+    @Override
+    protected Object getExistsElementStorage(Object idx, String uuid) {
+        if (!map.containsKey(uuid)) {
+            throw new NotExistStorageException(uuid);
+        }
+        return find(uuid);
+    }
+
+    @Override
+    protected Object getNotExistsElementStorage(Object idx, String uuid) {
+        if (map.containsKey(uuid)) {
+            throw new ExistStorageException(uuid);
+        }
+        return find(uuid);
     }
 }

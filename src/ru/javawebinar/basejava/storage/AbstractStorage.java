@@ -1,27 +1,8 @@
 package ru.javawebinar.basejava.storage;
 
-import ru.javawebinar.basejava.exception.ExistStorageException;
-import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
-
-    protected Object getExistElement(String uuid) {
-        Object idx = find(uuid);
-        if (idx == null || (Integer) idx < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-        return idx;
-    }
-
-    protected Object getNotExistElement(String uuid) {
-        Object idx = find(uuid);
-        if (idx != null && (Integer) idx >= 0) {
-            String s = "";
-            throw new ExistStorageException(uuid);
-        }
-        return idx;
-    }
 
     @Override
     public final void update(Resume resume) {
@@ -46,6 +27,15 @@ public abstract class AbstractStorage implements Storage {
         Object idx = getExistElement(uuid);
         deleteElement(idx);
     }
+    private Object getExistElement(String uuid) {
+        Object idx = find(uuid);
+        return getExistsElementStorage(idx, uuid);
+    }
+
+    private Object getNotExistElement(String uuid) {
+        Object idx = find(uuid);
+        return getNotExistsElementStorage(idx, uuid);
+    }
 
     protected abstract Object find(String uuid);
 
@@ -56,4 +46,8 @@ public abstract class AbstractStorage implements Storage {
     protected abstract Resume getElement(Object idx);
 
     protected abstract void deleteElement(Object idx);
+
+    protected abstract Object getExistsElementStorage(Object idx, String uuid);
+
+    protected abstract Object getNotExistsElementStorage(Object idx, String uuid);
 }
