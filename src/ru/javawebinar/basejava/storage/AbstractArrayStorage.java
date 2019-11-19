@@ -49,7 +49,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("В хранилище нет места", resume.getUuid());
         } else {
-            addResume(resume, idx);
+            addResume(resume, (Integer) idx);
             size++;
         }
     }
@@ -77,7 +77,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    protected abstract void removeResume(Object idx);
+    protected abstract void removeResume(int idx);
 
-    protected abstract void addResume(Resume resume, Object idx);
+    protected abstract void addResume(Resume resume, int idx);
 }
