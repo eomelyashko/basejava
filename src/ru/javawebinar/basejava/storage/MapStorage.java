@@ -1,7 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-import ru.javawebinar.basejava.exception.ExistStorageException;
-import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Map;
@@ -53,18 +51,12 @@ public class MapStorage extends AbstractStorage {
 
 
     @Override
-    protected Object getExistsElementStorage(Object idx, String uuid) {
-        if (!map.containsKey(uuid)) {
-            throw new NotExistStorageException(uuid);
-        }
-        return find(uuid);
+    protected boolean getExistsElementStorage(Object idx) {
+        return !map.containsKey(idx);
     }
 
     @Override
-    protected Object getNotExistsElementStorage(Object idx, String uuid) {
-        if (map.containsKey(uuid)) {
-            throw new ExistStorageException(uuid);
-        }
-        return find(uuid);
+    protected boolean getNotExistsElementStorage(Object idx) {
+        return map.containsKey(idx);
     }
 }

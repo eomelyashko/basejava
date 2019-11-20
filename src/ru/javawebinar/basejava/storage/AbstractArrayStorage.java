@@ -1,7 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-import ru.javawebinar.basejava.exception.ExistStorageException;
-import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
@@ -53,19 +51,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getExistsElementStorage(Object idx, String uuid) {
-        if ((Integer) idx < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-        return idx;
+    protected boolean getExistsElementStorage(Object idx) {
+        return (Integer) idx < 0;
     }
 
     @Override
-    protected Object getNotExistsElementStorage(Object idx, String uuid) {
-        if ((Integer) idx >= 0) {
-            throw new ExistStorageException(uuid);
-        }
-        return idx;
+    protected boolean getNotExistsElementStorage(Object idx) {
+        return (Integer) idx >= 0;
     }
 
     /**

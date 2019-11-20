@@ -1,7 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-import ru.javawebinar.basejava.exception.ExistStorageException;
-import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
@@ -45,19 +43,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getExistsElementStorage(Object idx, String uuid) {
-        if (idx == null) {
-            throw new NotExistStorageException(uuid);
-        }
-        return idx;
+    protected boolean getExistsElementStorage(Object idx) {
+        return idx == null;
     }
 
     @Override
-    protected Object getNotExistsElementStorage(Object idx, String uuid) {
-        if (idx != null) {
-            throw new ExistStorageException(uuid);
-        }
-        return idx;
+    protected boolean getNotExistsElementStorage(Object idx) {
+        return idx != null;
     }
 
     public Resume[] getAll() {
