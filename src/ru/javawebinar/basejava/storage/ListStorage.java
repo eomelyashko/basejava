@@ -43,13 +43,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean getExistsElementStorage(Object idx) {
-        return idx == null;
-    }
-
-    @Override
-    protected boolean getNotExistsElementStorage(Object idx) {
-        return idx != null;
+    protected boolean isExistElement(Object searchKey) {
+        return searchKey == null;
     }
 
     public Resume[] getAll() {

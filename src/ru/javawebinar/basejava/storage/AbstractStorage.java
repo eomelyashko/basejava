@@ -31,7 +31,7 @@ public abstract class AbstractStorage implements Storage {
     }
     private Object getExistElement(String uuid) {
         Object idx = find(uuid);
-        if (getExistsElementStorage(idx)) {
+        if (isExistElement(idx)) {
             throw new NotExistStorageException(uuid);
         }
         return idx;
@@ -39,7 +39,7 @@ public abstract class AbstractStorage implements Storage {
 
     private Object getNotExistElement(String uuid) {
         Object idx = find(uuid);
-        if (getNotExistsElementStorage(idx)) {
+        if (!isExistElement(idx)) {
             throw new ExistStorageException(uuid);
         }
         return idx;
@@ -55,7 +55,5 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void deleteElement(Object idx);
 
-    protected abstract boolean getExistsElementStorage(Object idx);
-
-    protected abstract boolean getNotExistsElementStorage(Object idx);
+    protected abstract boolean isExistElement(Object searchKey);
 }
