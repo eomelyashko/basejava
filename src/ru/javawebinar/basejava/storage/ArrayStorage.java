@@ -9,7 +9,7 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void removeResume(int idx) {
-        storage[(Integer) idx] = storage[size - 1];
+        storage[idx] = storage[size - 1];
     }
 
     @Override
@@ -18,7 +18,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected Object find(String searchKey) {
+    protected Integer find(String searchKey) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(searchKey.toLowerCase())) {
                 return i;

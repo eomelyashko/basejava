@@ -20,12 +20,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void updateElement(Resume resume, Object idx) {
+    public void doUpdate(Resume resume, Object idx) {
         storage[(Integer) idx] = resume;
     }
 
     @Override
-    public void saveElement(Resume resume, Object idx) {
+    public void doSave(Resume resume, Object idx) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("В хранилище нет места", resume.getUuid());
         } else {
@@ -35,12 +35,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume getElement(Object idx) {
+    public Resume doGet(Object idx) {
         return storage[(Integer) idx];
     }
 
     @Override
-    public final void deleteElement(Object idx) {
+    public final void doDelete(Object idx) {
         removeResume((Integer) idx);
         storage[size - 1] = null;
         size--;
@@ -51,8 +51,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExistElement(Object searchKey) {
-        return (Integer) searchKey < 0;
+    protected boolean isExist(Object idx) {
+        return (Integer) idx >= 0;
     }
 
     /**
@@ -65,4 +65,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void removeResume(int idx);
 
     protected abstract void addResume(Resume resume, int idx);
+
+    protected abstract Integer find(String uuid);
 }
