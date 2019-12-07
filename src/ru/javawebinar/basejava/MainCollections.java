@@ -11,10 +11,15 @@ public class MainCollections {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
 
-    private static final Resume RESUME_0 = new Resume(UUID_0);
-    private static final Resume RESUME_1 = new Resume(UUID_1);
-    private static final Resume RESUME_2 = new Resume(UUID_2);
-    private static final Resume RESUME_3 = new Resume(UUID_3);
+    private static final String FULLNAME_0 = "uuid0";
+    private static final String FULLNAME_1 = "uuid1";
+    private static final String FULLNAME_2 = "uuid2";
+    private static final String FULLNAME_3 = "uuid3";
+
+    private static final Resume RESUME_0 = new Resume(UUID_0, FULLNAME_0);
+    private static final Resume RESUME_1 = new Resume(UUID_1, FULLNAME_1);
+    private static final Resume RESUME_2 = new Resume(UUID_2, FULLNAME_2);
+    private static final Resume RESUME_3 = new Resume(UUID_3, FULLNAME_3);
 
     public static void main(String[] args) {
         Collection<Resume> collection = new ArrayList<>();

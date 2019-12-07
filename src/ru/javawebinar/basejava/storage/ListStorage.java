@@ -46,8 +46,8 @@ public class ListStorage extends AbstractStorage {
         return searchKey != null;
     }
 
-    public Resume[] getAll() {
-        return list.toArray(new Resume[list.size()]);
+    public List<Resume> getAllSorted() {
+        return list;
     }
 
     public int size() {

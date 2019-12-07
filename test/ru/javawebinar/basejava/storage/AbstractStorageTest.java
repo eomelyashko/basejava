@@ -6,7 +6,11 @@ import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
-import static org.junit.Assert.*;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected Storage storage;
@@ -16,16 +20,21 @@ public abstract class AbstractStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
 
+    private static final String FULLNAME_0 = "name_uuid0";
+    private static final String FULLNAME_1 = "name_uuid1";
+    private static final String FULLNAME_2 = "name_uuid2";
+    private static final String FULLNAME_3 = "name_uuid3";
+
     private static final Resume RESUME_0;
     private static final Resume RESUME_1;
     private static final Resume RESUME_2;
     private static final Resume RESUME_3;
 
     static {
-        RESUME_0 = new Resume(UUID_0);
-        RESUME_1 = new Resume(UUID_1);
-        RESUME_2 = new Resume(UUID_2);
-        RESUME_3 = new Resume(UUID_3);
+        RESUME_0 = new Resume(UUID_0, FULLNAME_0);
+        RESUME_1 = new Resume(UUID_1, FULLNAME_1);
+        RESUME_2 = new Resume(UUID_2, FULLNAME_2);
+        RESUME_3 = new Resume(UUID_3, FULLNAME_3);
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -49,7 +58,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume newResume = new Resume(UUID_0);
+        Resume newResume = new Resume(UUID_0, FULLNAME_0);
         storage.update(newResume);
         assertTrue(newResume == storage.get(UUID_0));
     }
@@ -102,8 +111,8 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] resumes = new Resume[] {RESUME_0, RESUME_1, RESUME_2};
-        assertArrayEquals(resumes, storage.getAll());
+        List<Resume> resumes = Arrays.asList(RESUME_0, RESUME_1, RESUME_2);
+        resumes.containsAll(storage.getAllSorted());
     }
 
     private void assertSize(int size) {

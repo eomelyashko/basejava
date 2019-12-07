@@ -17,11 +17,11 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
     public void saveStackOver() {
         try {
             for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
-                storage.save(new Resume("uuid" + i));
+                storage.save(new Resume("uuid" + i, "fullname" + i));
             }
         } catch (StorageException e) {
             fail("Error when fill");
         }
-        storage.save(new Resume("uuid10000"));
+        storage.save(new Resume("uuid10000", "fullname10000"));
     }
 }
