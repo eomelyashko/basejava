@@ -4,7 +4,10 @@ import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.Comparator;
+
 public abstract class AbstractStorage implements Storage {
+    protected static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getUuid);
 
     @Override
     public final void update(Resume resume) {
@@ -28,6 +31,10 @@ public abstract class AbstractStorage implements Storage {
     public final void delete(String uuid) {
         Object searchKey = getExistedKey(uuid);
         doDelete(searchKey);
+    }
+
+    public final Comparator<Resume> getComparatorArrayAndList() {
+        return RESUME_COMPARATOR.thenComparing(Resume::getUuid);
     }
 
     private Object getExistedKey(String uuid) {
