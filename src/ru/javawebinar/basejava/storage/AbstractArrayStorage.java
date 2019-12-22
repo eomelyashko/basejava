@@ -22,28 +22,28 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void doUpdate(Resume resume, Object idx) {
-        storage[(Integer) idx] = resume;
+    public void doUpdate(Resume resume, Object searchKey) {
+        storage[(Integer) searchKey] = resume;
     }
 
     @Override
-    public void doSave(Resume resume, Object idx) {
+    public void doSave(Resume resume, Object searchKey) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("В хранилище нет места", resume.getUuid());
         } else {
-            addResume(resume, (Integer) idx);
+            addResume(resume, (Integer) searchKey);
             size++;
         }
     }
 
     @Override
-    public Resume doGet(Object idx) {
-        return storage[(Integer) idx];
+    public Resume doGet(Object searchKey) {
+        return storage[(Integer) searchKey];
     }
 
     @Override
-    public final void doDelete(Object idx) {
-        removeResume((Integer) idx);
+    public final void doDelete(Object searchKey) {
+        removeResume((Integer) searchKey);
         storage[size - 1] = null;
         size--;
     }
@@ -57,13 +57,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return (Integer) idx >= 0;
     }
 
-    /**
-     * @return list, contains only Resumes in storage (without null)
-     */
-    public List<Resume> getAllSorted() {
-        List<Resume> allResume = new ArrayList<>(Arrays.asList(Arrays.copyOfRange(storage, 0, size)));
-        Collections.sort(allResume, getComparatorArrayAndList());
-        return allResume;
+    @Override
+    protected List<Resume> getCollectionStorage() {
+        return new ArrayList<Resume>(Arrays.asList(Arrays.copyOfRange(storage, 0, size)));
     }
 
     protected abstract void removeResume(int idx);
