@@ -9,7 +9,6 @@ import java.util.*;
  * Array based storage for Resumes
  */
 public abstract class AbstractArrayStorage extends AbstractStorage {
-    private static final Comparator<Resume> RESUME_SORTED = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     protected static final int STORAGE_LIMIT = 10_000;
 
@@ -58,8 +57,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected List<Resume> getCollectionStorage() {
-        return new ArrayList<Resume>(Arrays.asList(Arrays.copyOfRange(storage, 0, size)));
+    protected List<Resume> getAll() {
+        return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
     protected abstract void removeResume(int idx);
