@@ -21,28 +21,28 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void doUpdate(Resume resume, Object searchKey) {
-        storage[(Integer) searchKey] = resume;
+    public void doUpdate(Resume resume, Object idx) {
+        storage[(Integer) idx] = resume;
     }
 
     @Override
-    public void doSave(Resume resume, Object searchKey) {
+    public void doSave(Resume resume, Object idx) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("В хранилище нет места", resume.getUuid());
         } else {
-            addResume(resume, (Integer) searchKey);
+            addResume(resume, (Integer) idx);
             size++;
         }
     }
 
     @Override
-    public Resume doGet(Object searchKey) {
-        return storage[(Integer) searchKey];
+    public Resume doGet(Object idx) {
+        return storage[(Integer) idx];
     }
 
     @Override
-    public final void doDelete(Object searchKey) {
-        removeResume((Integer) searchKey);
+    public final void doDelete(Object idx) {
+        removeResume((Integer) idx);
         storage[size - 1] = null;
         size--;
     }

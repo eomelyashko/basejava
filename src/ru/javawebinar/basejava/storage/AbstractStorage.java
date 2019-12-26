@@ -36,9 +36,9 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        List<Resume> collectionStorage = getAll();
-        collectionStorage.sort(RESUME_SORTED);
-        return collectionStorage;
+        List<Resume> resums = getAll();
+        resums.sort(RESUME_SORTED);
+        return resums;
     }
 
     private Object getExistedKey(String uuid) {
