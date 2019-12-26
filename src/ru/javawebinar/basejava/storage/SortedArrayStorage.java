@@ -19,18 +19,18 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void addResume(Resume resume, int index) {
-        int insertIdx = Math.abs(index) - 1;
+        int insertIndex = Math.abs(index) - 1;
         // сдвиг элементов на 1 ячейку
-        System.arraycopy(storage, insertIdx, storage, insertIdx + 1, size - insertIdx);
-        storage[insertIdx] = resume;
+        System.arraycopy(storage, insertIndex, storage, insertIndex + 1, size - insertIndex);
+        storage[insertIndex] = resume;
     }
 
     @Override
-    protected void removeResume(int idx) {
+    protected void removeResume(int index) {
         //https://codereview.stackexchange.com/questions/36221/binary-search-for-inserting-in-array#answer-36239
-        int numMoved = size - idx - 1;
+        int numMoved = size - index - 1;
         if (numMoved > 0) {
-            System.arraycopy(storage, idx + 1, storage, idx, numMoved);
+            System.arraycopy(storage, index + 1, storage, index, numMoved);
         }
     }
 
