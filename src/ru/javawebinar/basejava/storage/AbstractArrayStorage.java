@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     protected static final int STORAGE_LIMIT = 10_000;
 
@@ -21,28 +21,28 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void doUpdate(Resume resume, Object idx) {
-        storage[(Integer) idx] = resume;
+    public void doUpdate(Resume resume, Integer idx) {
+        storage[idx] = resume;
     }
 
     @Override
-    public void doSave(Resume resume, Object idx) {
+    public void doSave(Resume resume, Integer idx) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("В хранилище нет места", resume.getUuid());
         } else {
-            addResume(resume, (Integer) idx);
+            addResume(resume, idx);
             size++;
         }
     }
 
     @Override
-    public Resume doGet(Object idx) {
-        return storage[(Integer) idx];
+    public Resume doGet(Integer idx) {
+        return storage[idx];
     }
 
     @Override
-    public final void doDelete(Object idx) {
-        removeResume((Integer) idx);
+    public final void doDelete(Integer idx) {
+        removeResume(idx);
         storage[size - 1] = null;
         size--;
     }
@@ -52,8 +52,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object idx) {
-        return (Integer) idx >= 0;
+    protected boolean isExist(Integer idx) {
+        return idx >= 0;
     }
 
     @Override
