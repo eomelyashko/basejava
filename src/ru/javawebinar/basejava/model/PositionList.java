@@ -4,19 +4,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Skills implements Section {
-    private List<String> value;
+public class PositionList implements Section {
+    private List<Position> value;
 
-    public Skills(String ... value) {
+    public PositionList(Position ... value) {
         Objects.requireNonNull(value, "value must not be null");
         this.value = Arrays.asList(value);
     }
 
-    public List<String> getValue() {
+    public List<Position> getValue() {
         return value;
     }
 
-    public void setValue(String...value) {
+    public void setValue(Position ... value) {
         this.value = Arrays.asList(value);
     }
 
@@ -25,9 +25,9 @@ public class Skills implements Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Skills skills = (Skills) o;
+        PositionList that = (PositionList) o;
 
-        return value.equals(skills.value);
+        return value.equals(that.value);
     }
 
     @Override
@@ -37,6 +37,8 @@ public class Skills implements Section {
 
     @Override
     public String toString() {
-        return value.toString();
+        return "PositionList{" +
+                "value=" + value +
+                '}';
     }
 }

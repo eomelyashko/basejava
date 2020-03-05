@@ -9,6 +9,7 @@ public class Contacts {
     public Contacts(String value, String link) {
         Objects.requireNonNull(value, "value must not be null");
         this.value = value;
+        this.link = link;
     }
 
     public Contacts(String value) {
@@ -48,8 +49,9 @@ public class Contacts {
 
     @Override
     public String toString() {
-        return "Contacts{" +
+        return "{" +
                 "value='" + value + '\'' +
+                ", link='" + link + '\'' +
                 '}';
     }
 }

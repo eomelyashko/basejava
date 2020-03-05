@@ -35,8 +35,8 @@ public class Profile implements Section {
 
     @Override
     public String toString() {
-        return "Profile{" +
-                "value='" + value + '\'' +
+        return "{" +
+                value + '\'' +
                 '}';
     }
 }

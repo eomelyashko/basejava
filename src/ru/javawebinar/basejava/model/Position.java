@@ -3,7 +3,7 @@ package ru.javawebinar.basejava.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Recommendations implements Section {
+public class Position {
     private String header;
     private String description;
 
@@ -12,7 +12,7 @@ public class Recommendations implements Section {
 
     private String link;
 
-    public Recommendations(String header, String description, LocalDate fromData, LocalDate toData, String link) {
+    public Position(String header, String description, LocalDate fromData, LocalDate toData, String link) {
         Objects.requireNonNull(header, "header must not be null");
         Objects.requireNonNull(description, "description must not be null");
         Objects.requireNonNull(fromData, "fromData must not be null");
@@ -23,7 +23,7 @@ public class Recommendations implements Section {
         this.link = link;
     }
 
-    public Recommendations(String header, String description, LocalDate fromData, LocalDate toData) {
+    public Position(String header, String description, LocalDate fromData, LocalDate toData) {
         this(header, description, fromData, toData, "");
     }
 
@@ -72,7 +72,7 @@ public class Recommendations implements Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Recommendations that = (Recommendations) o;
+        Position that = (Position) o;
 
         if (!header.equals(that.header)) return false;
         return description.equals(that.description);
@@ -87,11 +87,12 @@ public class Recommendations implements Section {
 
     @Override
     public String toString() {
-        return "Recommendations{" +
+        String today = toData == null ? "Сейчас" : toData.toString();
+        return "Position{" +
                 "header='" + header + '\'' +
                 ", description='" + description + '\'' +
                 ", fromData=" + fromData +
-                ", toData=" + toData +
+                ", toData=" + today +
                 ", link='" + link + '\'' +
                 '}';
     }

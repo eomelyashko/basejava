@@ -27,21 +27,21 @@ public class ResumeTestData {
         resume.addSkills(QUALIFICATIONS, new Skills("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
                 "Version control: Subversion, Git, Mercury, ClearCase, Perforce",
                 "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle"));
-        resume.addRecommendations(EXPERIENCE, new Recommendations("Java Online Projects", "Автор проекта.\nСоздание, организация и проведение Java онлайн проектов и стажировок.",
-                LocalDate.of(2013, 10, 1), null, "http://javaops.ru/"));
-        resume.addRecommendations(EXPERIENCE, new Recommendations("Wrike", "Старший разработчик (backend)\nПроектирование и разработка онлайн платформы управления проектами Wrike " +
+        resume.addPositions(EXPERIENCE, new Position("Java Online Projects", "Автор проекта.\nСоздание, организация и проведение Java онлайн проектов и стажировок.",
+                LocalDate.of(2013, 10, 1), null, "http://javaops.ru/"),
+                new Position("Wrike", "Старший разработчик (backend)\nПроектирование и разработка онлайн платформы управления проектами Wrike " +
                 "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.",
-                LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1), "https://www.wrike.com/"));
-        resume.addRecommendations(EXPERIENCE, new Recommendations("RIT Center", "Java архитектор\nОрганизация процесса разработки системы ERP для разных окружений: релизная политика, " +
+                LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1), "https://www.wrike.com/"),
+                new Position("RIT Center", "Java архитектор\nОрганизация процесса разработки системы ERP для разных окружений: релизная политика, " +
                 "версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. " +
                 "Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online " +
                 "редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python",
                 LocalDate.of(2012, 4, 1), LocalDate.of(2014, 10, 1)));
-        resume.addRecommendations(EDUCATION, new Recommendations("Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky",
-                LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "https://www.coursera.org/course/progfun"));
-        resume.addRecommendations(EDUCATION, new Recommendations("Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
-                LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"));
-        resume.addRecommendations(EDUCATION, new Recommendations("Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)",
+        resume.addPositions(EDUCATION, new Position("Coursera", "\"Functional Programming Principles in Scala\" by Martin Odersky",
+                LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "https://www.coursera.org/course/progfun"),
+                new Position("Luxoft", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
+                LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"),
+                new Position("Siemens AG", "3 месяца обучения мобильным IN сетям (Берлин)",
                 LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), "http://www.siemens.ru/"));
         System.out.println(resume);
     }
