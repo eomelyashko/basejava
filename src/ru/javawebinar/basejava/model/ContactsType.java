@@ -4,7 +4,9 @@ public enum ContactsType {
     PHONE("Тел."),
     SKYPE("Skype"),
     EMAIL("Почта"),
-    OTHER("Профиль");
+    LINKEDIN("LinkedIn"),
+    GITHUB("GitHub"),
+    STACKOVERFLOW("StackOverflov");
 
     private String title;
 
@@ -13,6 +15,11 @@ public enum ContactsType {
     }
 
     public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String toString() {
         return title;
     }
 }

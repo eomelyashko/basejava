@@ -1,17 +1,21 @@
 package ru.javawebinar.basejava.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Recommendations implements Section {
-    String header;
-    String description;
+    private String header;
+    private String description;
 
-    LocalDate fromData;
-    LocalDate toData;
+    private LocalDate fromData;
+    private LocalDate toData;
 
-    String link;
+    private String link;
 
     public Recommendations(String header, String description, LocalDate fromData, LocalDate toData, String link) {
+        Objects.requireNonNull(header, "header must not be null");
+        Objects.requireNonNull(description, "description must not be null");
+        Objects.requireNonNull(fromData, "fromData must not be null");
         this.header = header;
         this.description = description;
         this.fromData = fromData;
@@ -61,6 +65,24 @@ public class Recommendations implements Section {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Recommendations that = (Recommendations) o;
+
+        if (!header.equals(that.header)) return false;
+        return description.equals(that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = header.hashCode();
+        result = 31 * result + description.hashCode();
+        return result;
     }
 
     @Override

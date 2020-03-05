@@ -1,10 +1,13 @@
 package ru.javawebinar.basejava.model;
 
+import java.util.Objects;
+
 public class Contacts {
-    String value;
-    String link;
+    private String value;
+    private String link;
 
     public Contacts(String value, String link) {
+        Objects.requireNonNull(value, "value must not be null");
         this.value = value;
     }
 
@@ -26,6 +29,21 @@ public class Contacts {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Contacts contacts = (Contacts) o;
+
+        return value.equals(contacts.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 
     @Override

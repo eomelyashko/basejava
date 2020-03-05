@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Skills implements Section {
-    List<String> value;
+    private List<String> value;
 
     public Skills(String ... value) {
         this.value = Arrays.asList(value);
@@ -16,6 +16,21 @@ public class Skills implements Section {
 
     public void setValue(String...value) {
         this.value = Arrays.asList(value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Skills skills = (Skills) o;
+
+        return value.equals(skills.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 
     @Override
