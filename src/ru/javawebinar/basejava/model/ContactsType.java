@@ -2,24 +2,22 @@ package ru.javawebinar.basejava.model;
 
 public enum ContactsType {
     PHONE("Тел."),
+    MOBILE("Мобильный"),
+    HOME_PHONE("Домашний тел."),
     SKYPE("Skype"),
-    EMAIL("Почта"),
+    MAIL("Почта"),
     LINKEDIN("LinkedIn"),
     GITHUB("GitHub"),
-    STACKOVERFLOW("StackOverflov");
+    STACKOVERFLOW("StackOverflov"),
+    HOME_PAGE("Домашняя страница");
 
-    private String title;
+    private final String title;
 
     ContactsType(String title) {
         this.title = title;
     }
 
     public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public String toString() {
         return title;
     }
 }

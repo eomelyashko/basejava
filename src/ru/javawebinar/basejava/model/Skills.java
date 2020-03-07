@@ -4,20 +4,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Skills implements Section {
-    private List<String> value;
+public class Skills extends Section {
+    private final List<String> items;
 
-    public Skills(String ... value) {
-        Objects.requireNonNull(value, "value must not be null");
-        this.value = Arrays.asList(value);
+    public Skills(String... items) {
+        Objects.requireNonNull(items, "value must not be null");
+        this.items = Arrays.asList(items);
     }
 
-    public List<String> getValue() {
-        return value;
-    }
-
-    public void setValue(String...value) {
-        this.value = Arrays.asList(value);
+    public List<String> getItems() {
+        return items;
     }
 
     @Override
@@ -27,16 +23,16 @@ public class Skills implements Section {
 
         Skills skills = (Skills) o;
 
-        return value.equals(skills.value);
+        return items.equals(skills.items);
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return items.hashCode();
     }
 
     @Override
     public String toString() {
-        return value.toString();
+        return items.toString();
     }
 }

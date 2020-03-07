@@ -1,4 +1,4 @@
 package ru.javawebinar.basejava.model;
 
-public interface Section {
+abstract public class Section {
 }

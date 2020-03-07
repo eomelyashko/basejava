@@ -2,17 +2,17 @@ package ru.javawebinar.basejava.model;
 
 import java.util.Objects;
 
-public class Contacts {
+public class Link {
     private String value;
     private String link;
 
-    public Contacts(String value, String link) {
+    public Link(String value, String link) {
         Objects.requireNonNull(value, "value must not be null");
         this.value = value;
         this.link = link;
     }
 
-    public Contacts(String value) {
+    public Link(String value) {
         this(value, "");
     }
 
@@ -20,16 +20,8 @@ public class Contacts {
         return value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public String getLink() {
         return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     @Override
@@ -37,21 +29,21 @@ public class Contacts {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Contacts contacts = (Contacts) o;
+        Link link = (Link) o;
 
-        return value.equals(contacts.value);
+        if (!value.equals(link.value)) return false;
+        return this.link != null ? this.link.equals(link.link) : link.link == null;
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        int result = value.hashCode();
+        result = 31 * result + (link != null ? link.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "{" +
-                "value='" + value + '\'' +
-                ", link='" + link + '\'' +
-                '}';
+        return "Link(" + value + ',' + link + ')';
     }
 }

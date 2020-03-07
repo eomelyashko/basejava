@@ -4,67 +4,43 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Position {
-    private String header;
-    private String description;
+    private final String header;
+    private final String description;
 
-    private LocalDate fromData;
-    private LocalDate toData;
+    private final LocalDate fromDate;
+    private final LocalDate toDate;
 
-    private String link;
+    private final Link link;
 
-    public Position(String header, String description, LocalDate fromData, LocalDate toData, String link) {
+    public Position(String header, String description, LocalDate fromDate, LocalDate toDate, String value, String link) {
         Objects.requireNonNull(header, "header must not be null");
-        Objects.requireNonNull(description, "description must not be null");
-        Objects.requireNonNull(fromData, "fromData must not be null");
+        Objects.requireNonNull(fromDate, "fromDate must not be null");
+        Objects.requireNonNull(toDate, "toDate must not be null");
         this.header = header;
         this.description = description;
-        this.fromData = fromData;
-        this.toData = toData;
-        this.link = link;
-    }
-
-    public Position(String header, String description, LocalDate fromData, LocalDate toData) {
-        this(header, description, fromData, toData, "");
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.link = new Link(value, link);
     }
 
     public String getHeader() {
         return header;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public LocalDate getFromDate() {
+        return fromDate;
     }
 
-    public LocalDate getFromData() {
-        return fromData;
+    public LocalDate getToDate() {
+        return toDate;
     }
 
-    public void setFromData(LocalDate fromData) {
-        this.fromData = fromData;
-    }
-
-    public LocalDate getToData() {
-        return toData;
-    }
-
-    public void setToData(LocalDate toData) {
-        this.toData = toData;
-    }
-
-    public String getLink() {
+    public Link getLink() {
         return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     @Override
@@ -72,26 +48,33 @@ public class Position {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Position that = (Position) o;
+        Position position = (Position) o;
 
-        if (!header.equals(that.header)) return false;
-        return description.equals(that.description);
+        if (!header.equals(position.header)) return false;
+        if (description != null ? !description.equals(position.description) : position.description != null)
+            return false;
+        if (!fromDate.equals(position.fromDate)) return false;
+        if (!toDate.equals(position.toDate)) return false;
+        return link.equals(position.link);
     }
 
     @Override
     public int hashCode() {
         int result = header.hashCode();
-        result = 31 * result + description.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + fromDate.hashCode();
+        result = 31 * result + toDate.hashCode();
+        result = 31 * result + link.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        String today = toData == null ? "Сейчас" : toData.toString();
+        String today = toDate == null ? "Сейчас" : toDate.toString();
         return "Position{" +
                 "header='" + header + '\'' +
                 ", description='" + description + '\'' +
-                ", fromData=" + fromData +
+                ", fromData=" + fromDate +
                 ", toData=" + today +
                 ", link='" + link + '\'' +
                 '}';

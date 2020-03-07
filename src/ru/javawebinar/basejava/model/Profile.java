@@ -2,20 +2,16 @@ package ru.javawebinar.basejava.model;
 
 import java.util.Objects;
 
-public class Profile implements Section {
-    private String value;
+public class Profile extends Section {
+    private final String content;
 
-    public Profile(String value) {
-        this.value = value;
+    public Profile(String content) {
+        Objects.requireNonNull(content, "content must not be null");
+        this.content = content;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        Objects.requireNonNull(value, "value must not be null");
-        this.value = value;
+    public String getContent() {
+        return content;
     }
 
     @Override
@@ -25,18 +21,16 @@ public class Profile implements Section {
 
         Profile profile = (Profile) o;
 
-        return value.equals(profile.value);
+        return content.equals(profile.content);
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return content.hashCode();
     }
 
     @Override
     public String toString() {
-        return "{" +
-                value + '\'' +
-                '}';
+        return content;
     }
 }

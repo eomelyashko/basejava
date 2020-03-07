@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class PositionList implements Section {
-    private List<Position> value;
+public class PositionList extends Section {
+    private final List<Position> value;
 
     public PositionList(Position ... value) {
         Objects.requireNonNull(value, "value must not be null");
@@ -14,10 +14,6 @@ public class PositionList implements Section {
 
     public List<Position> getValue() {
         return value;
-    }
-
-    public void setValue(Position ... value) {
-        this.value = Arrays.asList(value);
     }
 
     @Override
@@ -37,8 +33,6 @@ public class PositionList implements Section {
 
     @Override
     public String toString() {
-        return "PositionList{" +
-                "value=" + value +
-                '}';
+        return value.toString();
     }
 }
