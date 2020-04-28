@@ -21,12 +21,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    public void doUpdate(Resume resume, Integer idx) {
+    protected void doUpdate(Resume resume, Integer idx) {
         storage[idx] = resume;
     }
 
     @Override
-    public void doSave(Resume resume, Integer idx) {
+    protected void doSave(Resume resume, Integer idx) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("В хранилище нет места", resume.getUuid());
         } else {
@@ -57,7 +57,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected List<Resume> getAll() {
+    public List<Resume> doCopyAll() {
         return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
