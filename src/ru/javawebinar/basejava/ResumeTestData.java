@@ -1,7 +1,6 @@
 package ru.javawebinar.basejava;
 
 import ru.javawebinar.basejava.model.*;
-import ru.javawebinar.basejava.storage.Storage;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -29,45 +28,26 @@ public class ResumeTestData {
         resume.addSkills(QUALIFICATIONS, new Skills("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
                 "Version control: Subversion, Git, Mercury, ClearCase, Perforce",
                 "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle"));
-        resume.addPositions(EXPERIENCE, new Position("Java Online Projects", "http://javaops.ru/", "", new Heading("Автор проекта.\nСоздание, организация и проведение Java онлайн проектов и стажировок.",
+        resume.addPositions(EXPERIENCE, new Position("Java Online Projects", "http://javaops.ru/", "", new Experience("Автор проекта.\nСоздание, организация и проведение Java онлайн проектов и стажировок.",
                         LocalDate.of(2013, 10, 1), LocalDate.now())),
-                new Position("Wrike", "https://www.wrike.com/", "", new Heading("Старший разработчик (backend)\nПроектирование и разработка онлайн платформы управления проектами Wrike " +
+                new Position("Wrike", "https://www.wrike.com/", "", new Experience("Старший разработчик (backend)\nПроектирование и разработка онлайн платформы управления проектами Wrike " +
                         "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.",
                         LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1))),
-                new Position("RIT Center", "RIT", "", new Heading("Java архитектор\nОрганизация процесса разработки системы ERP для разных окружений: релизная политика, " +
+                new Position("RIT Center", "RIT", "", new Experience("Java архитектор\nОрганизация процесса разработки системы ERP для разных окружений: релизная политика, " +
                         "версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. " +
                         "Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online " +
                         "редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python",
                         LocalDate.of(2012, 4, 1), LocalDate.of(2014, 10, 1))));
-        resume.addPositions(EDUCATION, new Position("Coursera", "https://www.coursera.org/course/progfun", "", new Heading("\"Functional Programming Principles in Scala\" by Martin Odersky",
+        resume.addPositions(EDUCATION, new Position("Coursera", "https://www.coursera.org/course/progfun", "", new Experience("\"Functional Programming Principles in Scala\" by Martin Odersky",
                         LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1))),
-                new Position("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", "", new Heading("Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
+                new Position("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", "", new Experience("Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
                         LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1))),
-                new Position("Siemens AG", "http://www.siemens.ru/", "", new Heading("3 месяца обучения мобильным IN сетям (Берлин)",
+                new Position("Siemens AG", "http://www.siemens.ru/", "", new Experience("3 месяца обучения мобильным IN сетям (Берлин)",
                         LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1))));
         System.out.println(resume);
     }
 
-    public static Storage getResume(Storage storage) {
-
-        final String UUID_0 = "uuid0";
-        final String UUID_1 = "uuid1";
-        final String UUID_2 = "uuid2";
-
-        final Resume RESUME_0;
-        final Resume RESUME_1;
-        final Resume RESUME_2;
-
-        RESUME_0 = new Resume(UUID_0, "name_uuid0");
-        RESUME_1 = new Resume(UUID_1, "name_uuid1");
-        RESUME_2 = new Resume(UUID_2, "name_uuid2");
-
-
-        storage.clear();
-        storage.save(RESUME_0);
-        storage.save(RESUME_1);
-        storage.save(RESUME_2);
-
-        return storage;
+    public static Resume getResume(String uuid, String fullName) {
+        return new Resume(uuid, fullName);
     }
 }

@@ -3,13 +3,13 @@ package ru.javawebinar.basejava.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Heading {
+public class Experience {
     private final String name;
 
     private final LocalDate fromDate;
     private final LocalDate toDate;
 
-    public Heading(String name, LocalDate fromDate, LocalDate toDate) {
+    public Experience(String name, LocalDate fromDate, LocalDate toDate) {
         Objects.requireNonNull(fromDate, "fromDate must not be null");
         Objects.requireNonNull(toDate, "toDate must not be null");
         this.name = name;
@@ -34,11 +34,11 @@ public class Heading {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Heading heading = (Heading) o;
+        Experience experience = (Experience) o;
 
-        if (name != null ? !name.equals(heading.name) : heading.name != null) return false;
-        if (!fromDate.equals(heading.fromDate)) return false;
-        return toDate.equals(heading.toDate);
+        if (name != null ? !name.equals(experience.name) : experience.name != null) return false;
+        if (!fromDate.equals(experience.fromDate)) return false;
+        return toDate.equals(experience.toDate);
     }
 
     @Override

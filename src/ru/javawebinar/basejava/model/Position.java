@@ -6,11 +6,11 @@ import java.util.Objects;
 public class Position {
     private final String header;
 
-    private List<Heading> listHeading;
+    private List<Experience> listExperience;
 
     private final Link link;
 
-    public Position(String header, String value, String link, Heading ... headings) {
+    public Position(String header, String value, String link, Experience... experiences) {
         Objects.requireNonNull(header, "header must not be null");
         this.header = header;
         this.link = new Link(value, link);
@@ -32,7 +32,7 @@ public class Position {
         Position position = (Position) o;
 
         if (!header.equals(position.header)) return false;
-        if (!listHeading.equals(position.listHeading)) return false;
+        if (!listExperience.equals(position.listExperience)) return false;
         return link.equals(position.link);
     }
 
