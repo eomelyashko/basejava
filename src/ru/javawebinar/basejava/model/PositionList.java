@@ -8,8 +8,12 @@ public class PositionList extends Section {
     private final List<Position> value;
 
     public PositionList(Position ... value) {
+        this(Arrays.asList(value));
+    }
+
+    public PositionList(List<Position> value) {
         Objects.requireNonNull(value, "value must not be null");
-        this.value = Arrays.asList(value);
+        this.value = value;
     }
 
     public List<Position> getValue() {

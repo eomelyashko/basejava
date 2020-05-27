@@ -31,16 +31,8 @@ public class Resume {
         contacts.put(contactsType, link);
     }
 
-    public void addProfile(SectionType sectionType, Profile profile) {
-        sections.put(sectionType, profile);
-    }
-
-    public void addSkills(SectionType sectionType, Skills skill) {
-        sections.put(sectionType, skill);
-    }
-
-    public void addPositions(SectionType sectionType, Position ... position) {
-        sections.put(sectionType, new PositionList(position));
+    public void addSection(SectionType sectionType, Section context) {
+        sections.put(sectionType, context);
     }
 
     public String getContacts(ContactsType type) {
@@ -67,7 +59,7 @@ public class Resume {
         Resume resume = (Resume) o;
 
         if (!uuid.equals(resume.uuid)) return false;
-        return !fullName.equals(resume.fullName);
+        return fullName.equals(resume.fullName);
     }
 
     @Override
@@ -79,8 +71,6 @@ public class Resume {
 
     @Override
     public String toString() {
-        return uuid + '(' + fullName + ')' +
-                contacts + "\n" +
-                sections + "\n";
+        return uuid + '(' + fullName + ')';
     }
 }

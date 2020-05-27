@@ -8,8 +8,12 @@ public class Skills extends Section {
     private final List<String> items;
 
     public Skills(String... items) {
+        this(Arrays.asList(items));
+    }
+
+    public Skills(List<String> items) {
         Objects.requireNonNull(items, "value must not be null");
-        this.items = Arrays.asList(items);
+        this.items = items;
     }
 
     public List<String> getItems() {

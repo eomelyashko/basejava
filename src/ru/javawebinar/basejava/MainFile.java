@@ -27,24 +27,24 @@ public class MainFile {
         try (FileInputStream fis = new FileInputStream(filePath)) {
             System.out.println(fis.read());
         } catch (IOException e) {
-            throw  new RuntimeException(e);
+            throw new RuntimeException(e);
         }
 
         //recursive output of file names
-        findFiles(dir);
+        printFilesDeeply(dir);
     }
 
-    public static void findFiles(File file) throws IOException {
-        if (file.isDirectory()) {
-            System.out.println(file.getName());
-            File[] list = file.listFiles();
-            if (list != null) {
-                for (int i = list.length; --i >= 0; ) {
-                    findFiles(list[i]);
+    public static void printFilesDeeply(File dir) throws IOException {
+        File[] list = dir.listFiles();
+        if (list != null) {
+            for (File file : list) {
+                if (file.isFile()) {
+                    System.out.println("File: " + file.getName());
+                } else {
+                    System.out.println("Directory: " + file.getName());
+                    printFilesDeeply(file);
                 }
             }
-        } else {
-            System.out.println("\t" + file.getCanonicalPath());
         }
     }
 }
